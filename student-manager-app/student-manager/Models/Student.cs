@@ -1,7 +1,9 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+
 namespace student_manager.Models
 {
+    
     public class Student
     {
         [BsonId]
@@ -16,6 +18,11 @@ namespace student_manager.Models
         [BsonElement("class")]
         public string Class { get; set; } = "Class";
         [BsonElement("birthday")]
-        public DateTime birthday { get; set; } = DateTime.MinValue;
+        public DateTime Birthday { get; set; }
+        [BsonElement("age")]
+        public int Age { get; set; }
+        [BsonElement("graduated")]
+        public bool IsGraduated { get; set; }
+
     }
 }

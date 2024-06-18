@@ -1,10 +1,12 @@
-using ZstdSharp.Unsafe;
+
+using student_manager.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.Configure<ConnectionStrings>(
+builder.Services.Configure<student_manager.Data.DatabaseSettings>(
     builder.Configuration.GetSection("ConnectionStrings"));
+builder.Services.AddSingleton<StudentServices>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
