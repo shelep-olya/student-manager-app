@@ -11,7 +11,7 @@ namespace student_manager.Models
         public string Id { get; set; } = string.Empty;
         [BsonElement("fisrtname")]
         public string FirstName { get; set; } = "Student First Name";
-        [BsonElement("lastaname")]
+        [BsonElement("lastname")]
         public string LastName { get; set; } = "Student Last Name";
         [BsonElement("department")]
         public string Department { get; set; } = "Department";
