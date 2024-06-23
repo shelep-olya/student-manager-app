@@ -1,58 +1,109 @@
 const entry = {
   id: "",
-  firstname: "",
-  lastname: "",
-  class: "",
+  firstName: "",
+  lastaNme: "",
   department: "",
-  age: 18,
+  className: "",
+  gender: 0,
+  dateOfBirth: new Date(),
   isGraduated: false,
-  birthday: new Date(),
+  age: 0,
 };
 
 export default function New(props) {
+  const addNewStudent = () => {
+    console.log(`The new student is: ${entry}`);
+    fetch("api/student", {
+      method: "POST",
+      body: JSON.stringify(entry),
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((r) => {
+        console.log(`response from backend for adding new student: ${r}`);
+        window.location = "/";
+      })
+      .catch((e) => console.log(`Error adding new student: ${e}`));
+  };
   const newData = (e) => {
     const name_ = e.target.name;
-    const v_ = e.target.value;
+    let v_ = e.target.value;
 
+    if (name_ === "dateOfBirth") {
+      v_ = new Date(v_);
+      entry.age = new Date().getFullYear() - v_.getFullYear();
+    }
+    if (name_ === "gender") {
+      v_ = Number(v_);
+    }
+    if (name_ === "isGraduated") {
+      v_ = v_ === "1";
+    }
     entry[name_] = v_;
-    console.log("The New Student Is: ", entry);
+    console.log(`The new student is: ${entry}`);
   };
   return (
-    <section className="m-20">
+    <section className="mt-10">
       <h1>Add New Student</h1>
-      <div>
+      <div className="mt-10">
         <label htmlFor="fn">First Name</label>
-        <input type="text" name="firstname" id="fn" onChange={newData}></input>
+        <input type="text" name="firstName" id="fn" onChange={newData} />
       </div>
 
-      <div>
-        <label htmlFor="fn">First Name</label>
-        <input type="text" name="firstname" id="fn" onChange={newData}></input>
-      </div>
-
-      <div>
-        <label htmlFor="fn">First Name</label>
-        <input type="text" name="firstname" id="fn" onChange={newData}></input>
-      </div>
-
-      <div>
-        <label htmlFor="fn">First Name</label>
-        <input type="text" name="firstname" id="fn" onChange={newData}></input>
-      </div>
-
-      <div>
-        <label htmlFor="fn">First Name</label>
-        <input type="text" name="firstname" id="fn" onChange={newData}></input>
-      </div>
-
-      <div>
+      <div className="mt-10">
         <label htmlFor="ln">Last Name</label>
-        <input type="text" name="lastname" id="ln" onChange={newData}></input>
+        <input type="text" name="lastName" id="ln" onChange={newData}></input>
       </div>
 
-      <div>
-        <label htmlFor="class">Class</label>
-        <input type="text" name="class" id="class" onChange={newData}></input>
+      <div className="mt-10">
+        <label htmlFor="department">Department</label>
+        <input
+          type="text"
+          name="department"
+          id="department"
+          onChange={newData}
+        />
+      </div>
+
+      <div className="mt-10">
+        <label htmlFor="cn">Class</label>
+        <input type="text" name="className" id="cn" onChange={newData} />
+      </div>
+
+      <div className="mt-10">
+        <label htmlFor="gender">Gender</label>
+        <select name="gender" id="gender" onChange={newData}>
+          <option value={1}>Male</option>
+          <option value={0}>Female</option>
+        </select>
+      </div>
+
+      <div className="mt-10">
+        <label htmlFor="dob">Birthday</label>
+        <input
+          type="date"
+          name="dateOfBirth"
+          id="dob"
+          onChange={newData}
+        ></input>
+      </div>
+
+      <div className="mt-10">
+        <label htmlFor="graduated">Is Graduated</label>
+        <select name="isGraduated" id="graduated" onChange={newData}>
+          <option value={1}>Yes</option>
+          <option value={0}>No</option>
+        </select>
+      </div>
+
+      <div className="mt-30 row p20 justify-between">
+        <div className="btn cancel" onClick={() => (window.location = "/")}>
+          Cancel
+        </div>
+        <div className="btn add" onClick={addNewStudent}>
+          Add
+        </div>
       </div>
     </section>
   );

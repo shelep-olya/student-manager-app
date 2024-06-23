@@ -1,7 +1,7 @@
 import React from "react";
 import Home from "./components/Home";
-import Edit from "./components/Home";
-import New from "./components/Home";
+import Edit from "./components/Edit";
+import New from "./components/New";
 
 const AppRoutes = [
   {
